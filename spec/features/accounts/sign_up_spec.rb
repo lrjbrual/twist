@@ -15,6 +15,6 @@ feature "Accounts" do
       expect(page).to have_content(success_message)
     end
     expect(page).to have_content("Signed in as test@example.com")
-    expect(page.current_url).to eq("http://test.example.com/")
+    expect(page.current_url).to eq("http://test.lvh.me/")
   end
 end
