@@ -5,10 +5,15 @@ class AccountsController < ApplicationController
   end
 
   def create
-    account = Account.create(account_params)
-    sign_in(account.owner) # acter the account has been created it will automatically signedin
-    flash[:notice] = "Your account has been created."
-    redirect_to root_url(subdomain: account.subdomain) #redirect to subdomain but in flash it will not work use the session_store.rb
+    @account = Account.new(account_params)
+    if @account.save
+      sign_in(@account.owner) # acter the account has been created it will automatically signedin
+      flash[:notice] = "Your account has been created."
+      redirect_to root_url(subdomain: @account.subdomain) #redirect to subdomain but in flash it will not work use the session_store.rb
+    else
+      flash.now[:alert] = "Sorry, your account could not be created."
+      render :new      
+    end
   end
 
   private
