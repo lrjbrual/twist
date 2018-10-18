@@ -1,5 +1,6 @@
 module Accounts
   class BooksController < Accounts::BaseController
+    skip_before_action :authenticate_user!, only: [:receive]
     skip_before_action :verify_authenticity_token, only: :receive
   
     def index
@@ -14,7 +15,7 @@ module Accounts
       @book = Book.new(book_params)
       if @book.save
         @book.enqueue
-        flash[:notice] = "Thanks! Your book is now being processed. Please wait."
+        flash[:notice] = "#{@book.title} has been enqueued for processing."
         redirect_to book_path(@book)
       # else
       #   flash[:alert] = "Book could not be created."

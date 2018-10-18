@@ -13,11 +13,12 @@ feature "Adding books" do
       visit root_url
       click_link "Add Book"
       fill_in "Title", with: "Markdown Book Test"
-      fill_in "Github Path", with: "radar/markdown_book_test"
+      fill_in "GitHub Path", with: "radar/markdown_book_test" 
       click_button "Add Book"
       expect(page).to have_content(
-        "Markdown Book Test has been enqueued for processing."
+              "Markdown Book Test has been enqueued for processing."
       )
+        
     end
   end
 
