@@ -50,4 +50,5 @@ Rails.application.configure do
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { :host => "localhost:3000" }
+  # config.session_store :cookie_store, key: 'twist', domain: '.lvh.me'
 end
