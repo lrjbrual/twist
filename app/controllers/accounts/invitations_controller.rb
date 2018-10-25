@@ -2,6 +2,10 @@ module Accounts
   class InvitationsController < Accounts::BaseController
     before_action :authorize_owner!
 
+    def accept
+      @invitation = Invitation.find(params[:id])
+    end
+    
     def new
       @invitation = Invitation.new
     end
@@ -13,6 +17,7 @@ module Accounts
       flash[:notice] = "#{@invitation.email} has been invited."
       redirect_to root_url
     end
+
 
     private
     

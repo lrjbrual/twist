@@ -1,11 +1,5 @@
 require "constraints/subdomain_required"
 
-
-
-
-
-
-
 Twist::Application.routes.draw do
   devise_for :users
 
@@ -43,7 +37,11 @@ Twist::Application.routes.draw do
         
         resources :notes, &notes_routes
       end
-      resources :invitations, only: [:new, :create]
+      resources :invitations, only: [:new, :create] do
+        member do
+          get :accept
+        end
+      end
     end
   end
     
