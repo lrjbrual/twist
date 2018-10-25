@@ -1,6 +1,7 @@
 module Accounts
   class BaseController < ApplicationController
-    before_action :authenticate_user!, except: [:receive]
+    before_action :authenticate_user!
+    #before_action :authenticate_user!, except: [:receive]
     #skip_before_action :authenticate_user!, only: [:receive]
 
     def current_account
