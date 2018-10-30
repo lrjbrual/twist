@@ -41,7 +41,7 @@ feature "Accepting invitations" do
     invitation_url = accept_invitation_url(invitation, subdomain: account.subdomain)
     expect(page.current_url).to_not have_content("Sign in as an existing user")
     click_button "Accept Invitation"
-    expect(page).to have_content("You have joined to #{account.name} account.")
+    expect(page).to have_content("You have joined the #{account.name} account.")
     expect(page.current_url).to eq(root_url)
   end
 end

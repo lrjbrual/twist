@@ -1,6 +1,6 @@
 module Accounts
   class InvitationsController < Accounts::BaseController
-    skip_before_action :authenticate_user!, only: [:accept, :accepted]
+    skip_before_action :authorize_user!, only: [:accept, :accepted]
     before_action :authorize_owner!, except: [:accept, :accepted]
 
     def new
@@ -22,15 +22,21 @@ module Accounts
     
     def accepted
       @invitation = Invitation.find_by!(token: params[:id])
-      user_params = params[:user].permit(
-        :email,
-        :password,
-        :password_confirmation
-      )
+
+      if user_signed_in?
+        user = current_user
+      else
+        user_params = params[:user].permit(
+          :email,
+          :password,
+          :password_confirmation
+        )
       
-      user = User.create!(user_params)
+        user = User.create!(user_params)
+        sign_in(user)  
+      end 
+
       current_account.users << user
-      sign_in(user)
 
       flash[:notice] = "You have joined the #{current_account.name} account."
       redirect_to root_url(subdomain: current_account.subdomain)
