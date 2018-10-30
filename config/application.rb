@@ -12,6 +12,7 @@ Bundler.require(*Rails.groups)
 module Twist
   class Application < Rails::Application
     config.active_job.queue_adapter = :sidekiq
+    config.assets.initialize_on_precompile = true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
