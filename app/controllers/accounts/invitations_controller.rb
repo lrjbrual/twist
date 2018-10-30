@@ -1,6 +1,6 @@
 module Accounts
   class InvitationsController < Accounts::BaseController
-    skip_before_action :authenticate_user!, only: [:accept, :accepted], raise: false
+    skip_before_action :authenticate_user!, only: [:accept, :accepted]
     before_action :authorize_owner!, except: [:accept, :accepted]
 
     def new
@@ -16,6 +16,7 @@ module Accounts
     end
     
     def accept
+      store_location_for(:user, request.fullpath)
       @invitation = Invitation.find_by!(token: params[:id])
     end
     

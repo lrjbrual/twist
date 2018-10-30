@@ -5,13 +5,14 @@ class Invitation < ApplicationRecord
 
   validates :email, presence: true
  
-  private
+  def to_param
+    token
+  end
 
+  private
+  
   def generate_token
     self.token = SecureRandom.hex(16)
   end
 
-  def to_param
-    token
-  end
 end
